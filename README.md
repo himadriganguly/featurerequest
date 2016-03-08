@@ -40,7 +40,7 @@ This application is developed to create a prototype of creating a Feature Reques
 7. View **Charts** based on the number of Feature Request of **Clients**, **Number of Feature Request on Product Area** and the **Target Date** of Feature Request.
 
 
-## Limitation
+## Limitations
 
 1. Testing is not done in this application.
 2. The Application can be more dry by tweaking the code. Sorry developed in a hurry so make some mistakes.

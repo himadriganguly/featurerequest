@@ -12,7 +12,7 @@ This application is developed to create a prototype of creating a Feature Reques
 
 ## Application ScreenShot
 
-![Feature Request Application]( "Feature Request Application Browser Preview")
+![Feature Request Application](https://raw.githubusercontent.com/himadriganguly/featurerequest/master/screenshots/screenshot.jpg "Feature Request Application Browser Preview")
 
 
 ## Running The Application

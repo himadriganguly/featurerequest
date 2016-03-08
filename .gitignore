@@ -6,6 +6,11 @@
 *.sqlite
 *.sqlite3
 
+# Images #
+##########
+*.jpg
+*.png
+
 
 # OS generated files #
 ######################

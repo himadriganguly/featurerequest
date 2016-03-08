@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}{{ featurerequest.title|title }} Details | Dashboard{% endblock %}
+
+{% block content %}
+					<div class="page-title">
+                        <div class="title_left">
+                            <h3>
+			                    Feature Request Details
+			                </h3>
+                        </div>                        
+                    </div>
+                    <div class="clearfix"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>{{ featurerequest.title|title }} Details</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li style="float: right;"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li> 
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">									
+									<div class="row">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="item form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12">Feature Title
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															{{ featurerequest.title }}
+														</div>
+													</div>
+												</div>    
+												<div class="col-md-6">
+													<div class="item form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12">Target Date
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															{{ featurerequest.targetdate }}
+														</div>				                                            
+													</div>	
+												</div>   
+											</div>                     	                        		
+										</div>
+									</div>
+									
+									<hr />
+									
+									<div class="row">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="item form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12">Client
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															{{ featurerequest.client }}
+														</div>
+													</div>
+												</div>    
+												<div class="col-md-6">
+													<div class="item form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12">Product Area
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															{{ featurerequest.productarea }}
+														</div>				                                            
+													</div>	
+												</div>   
+											</div>                     	                        		
+										</div>
+									</div>
+									<hr />
+									
+									<div class="row">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="item form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12">Feature Priority
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															{{ featurerequest.priority }}
+														</div>
+													</div>
+												</div>    
+												<div class="col-md-6">
+													<div class="item form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12">Feature URL
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															{% if featurerequest.url %}<a href="{{ featurerequest.url }}" target="_blank">{{ featurerequest.url }}</a> {% else %} N/A {% endif %}
+														</div>				                                            
+													</div>	
+												</div>   
+											</div>                     	                        		
+										</div>
+									</div>
+									<hr />
+									
+									<div class="row">
+										<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="item form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12">Description
+														</label>
+														<div class="col-md-9 col-sm-9 col-xs-12">
+															{{ featurerequest.desc }}
+														</div>
+													</div>
+												</div> 
+											</div>                     	                        		
+										</div>
+									</div>
+									<hr />
+									
+                                </div>
+                            </div>
+                        </div>
+                    </div>					
+{% endblock %}

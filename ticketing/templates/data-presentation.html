@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}New Feature | Dashboard{% endblock %}
+
+{% block content %}
+					<div class="page-title">
+                        <div class="title_left">
+                            <h3>
+			                    Data Presentation Of Feature Request
+			                </h3>
+                        </div>                        
+                    </div>
+                    <div class="clearfix"></div>
+                    
+                    {% if count != 0 %}		
+                    <div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Pie Chart For Client <small>No. Of Feature Requst</small></h2>
+									<ul class="nav navbar-right panel_toolbox">
+                                        <li style="float: right;"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li> 
+                                    </ul>
+                                    <div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+                                    <div id="graph_donut" style="width:100%; height:300px;"></div>
+                                </div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Bar Chart For Product <small>No. Of Feature Requst</small></h2>
+									<ul class="nav navbar-right panel_toolbox">
+                                        <li style="float: right;"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li> 
+                                    </ul>
+                                    <div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+                                    <div id="graph_bar" style="width:100%; height:300px;"></div>
+                                </div>
+							</div>
+						</div>
+					</div>
+					<hr />
+					<div class="row">						
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Line Graph For Target Date <small>No. Of Feature Requst</small></h2>
+									<ul class="nav navbar-right panel_toolbox">
+                                        <li style="float: right;"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li> 
+                                    </ul>
+                                    <div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+                                    <div id="graph_line" style="width:100%; height:300px;"></div>
+                                </div>
+							</div>
+						</div>
+					</div>
+					{% else %}
+						<h4><center>No data to show in this page</center></h4>
+					{% endif %}
+{% endblock %}
+
+{% block script %}
+	<!-- moris js -->
+    <script type="text/javascript" src="{% static 'js/moris/raphael-min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/moris/morris.min.js' %}"></script>
+    
+    <!-- chart js -->
+    <script src="{% static 'js/chartjs/chart.min.js' %}"></script>
+    
+    <script type="text/javascript">
+		Morris.Donut({
+			element: 'graph_donut',
+			data: [
+				{% for key, value in client_feature_percent.items %}					
+					{label: '{{ key|title }}', value: {{ value }} },
+				{% endfor %}
+			],
+			colors: ['#34495E', '#26b99a', '#3498DB'],
+			formatter: function (y) {
+				return y + "%" + " Of Feature Request"
+			}
+		});
+		
+		Morris.Bar({
+			element: 'graph_bar',
+			data: [
+				{% for key, value in product_feature_total.items %}
+					{product: '{{ key|title }}', features: {{ value }}},
+				{% endfor %}
+			],
+			xkey: 'product',
+			ykeys: ['features'],
+			labels: ['Feature Request'],
+			barRatio: 0.4,
+			barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+			xLabelAngle: 35,
+			hideHover: 'auto'
+		});
+		
+		new Morris.Line({
+			element: 'graph_line',
+			xkey: 'date',
+			ykeys: ['value'],
+			labels: ['Feature Requests'],
+			hideHover: 'auto',
+			lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+			data: [
+				{% for key, value in target_date_total.items %}
+					{date: '{{ key }}', value: '{{ value }}'},
+				{% endfor %}
+			]
+		});
+		
+    </script>
+{% endblock %}

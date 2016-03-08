@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Sort Feature | Dashboard{% endblock %}
+
+{% block content %}
+					<div class="page-title">
+                        <div class="title_left">
+                            <h3>
+			                    View Feature Request
+			                </h3>
+                        </div>                        
+                    </div>
+                    <div class="clearfix"></div>
+					
+					<div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Choose Client To Display Feature Requests</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li style="float: right;"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li> 
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+									<form id="client-select" class="form-horizontal form-label-left" method="post" action="{% url 'feature-list' %}" novalidate>
+										{% csrf_token %}
+										
+										{% if form.non_field_errors %}
+											<div class="form-messages animated flash">
+												{% for error in form.non_field_errors %}
+													<div class="alert alert-danger alert-dismissible" role="alert">
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														<strong>{{ error }}</strong>
+													</div>													
+												{% endfor %}
+											</div>											
+										{% endif %}
+										
+										<div class="row">
+                                        	<div class="col-md-12 col-sm-12 col-xs-12">
+                                        		<div class="row">
+													<div class="col-md-6">
+	                                        			<div class="item form-group">
+				                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="{{ form.client.id_for_label }}">{{ form.client.label }} <span class="required">*</span>
+				                                            </label>
+				                                            <div class="col-md-6 col-sm-6 col-xs-12">
+																{{ form.client }}				                                                
+				                                                {% if form.client.errors %}
+																	{% for error in form.client.errors %}
+																		<p>{{ error }}</p>
+																	{% endfor %}
+				                                                {% endif %}
+				                                            </div>
+				                                        </div>
+	                                        		</div> 
+	                                        		<div class="col-md-6">
+														<input class="btn btn-success form-submit" type="submit" name="submit-btn" value="Submit" id="submit-btn"/>
+	                                        		</div>  
+												</div>												
+											</div>
+										</div>										
+									</form>
+									<hr/>
+									{% if client %}
+										<h3>Feature Request For Client - <mark>{{ client.name }}</mark></h3>
+										<span>Click on each Feature Title to get Details. Drag and Drop the lists in the Table to Sort Priority Number</span>
+									{% endif %}
+									<form id="sort-table" method="post" action="/">
+										{% csrf_token %}
+										<table class="table table-bordered sorted_table">
+											<thead>
+												<tr>
+													<th><center>Feature Title</center></th>
+													<th><center>Product Area</center></th>
+													<th><center>Target Date</center></th>
+													<th><center>Priority</center></th>
+												</tr>
+											</thead>
+											{% if client and client.tickets.count > 0 %}
+												<tbody>									
+													{% for ticket in client.tickets.all %}
+														<tr>
+															<td><a href="{% url 'feature-details' ticket.pk %}">{{ ticket.title }}</a></td>
+															<td>{{ ticket.productarea }}</td>
+															<td>{{ ticket.targetdate }}</td>
+															<td data-featureid="{{ ticket.id }}" data-priority="{{ ticket.priority }}">{{ ticket.priority }}</td>
+														</tr>
+													{% endfor %}											
+												</tbody>
+											{% elif client.tickets.count == 0 %}
+												<tbody>
+													<td colspan=4><center>No Data To Display For This Client.</center></td>
+												</tbody>
+											{% else %}
+												<tbody>
+													<td colspan=4><center>No Data To Display. Please Choose a Client.</center></td>
+												</tbody>
+											{% endif %}
+										</table>
+										{% if client and client.tickets.count > 0 %}
+											<div class="form-group">
+												<div class="col-md-12">
+													<input class="btn btn-success form-submit" type="submit" name="submit-btn" value="Update" id="submit-btn"/>
+												</div>
+											</div>
+                                        {% endif %}
+                                    </form>			
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript" src="{% static 'js/jquery-sortable.js' %}"></script>
+	<script type="text/javascript">
+
+			// initialize the validator function
+			validator.message['empty'] = 'required field';
+
+			// validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+			$('form')
+				.on('blur', 'input[required], input.optional, select.required', validator.checkField)
+				.on('change', 'select.required', validator.checkField)
+				.on('keypress', 'input[required][pattern]', validator.keypress);
+
+			$('.multi.required')
+				.on('keyup blur', 'input', function () {
+					validator.checkField.apply($(this).siblings().last()[0]);
+				});
+
+			// bind the validation to the form submit event
+			//$('#send').click('submit');//.prop('disabled', true);
+
+			$('form#client-select').submit(function (e) {
+				e.preventDefault();           
+				var submit = true;
+				// evaluate the form using generic validaing
+				if (!validator.checkAll($(this))) {
+					submit = false;
+				}
+
+				if (submit)
+					this.submit();
+				return false;
+			});
+			
+			$('.sorted_table').sortable({
+			  containerSelector: 'table',
+			  itemPath: '> tbody',
+			  itemSelector: 'tr',
+			  placeholder: '<tr class="placeholder"/>',	
+			  onDrop: function($item, container, _super){
+				  
+					//console.log($item.parent().find('tr'));
+					//$('.sorted_table tbody tr td:nth-child(4)')
+					container.el.find('tbody tr td:nth-child(4)').each(function(i) { 						
+						//$(this).data('priority', i + 1); // updates the data object
+						$(this).attr('data-priority', i + 1); // updates the attribute
+						$(this).text(i + 1);
+						//console.log($(this).data('priority'));
+					});
+					
+					_super($item, container);
+				  },		  
+			});
+			
+			
+			function getCookie(name) {
+				var cookieValue = null;
+				if (document.cookie && document.cookie != '') {
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++) {
+						var cookie = jQuery.trim(cookies[i]);
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) == (name + '=')) {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+			
+			$('form#sort-table').submit(function (e) {
+				
+				e.preventDefault(); 
+				
+				//Prepare csrf token
+				var csrftoken = getCookie('csrftoken');  
+				    
+				function createJSON() {
+					jsonObj = [];
+					$('table.sorted_table tbody tr td:nth-child(4)').each(function() {
+						
+						var id = $(this).attr("data-featureid");
+						var priority = $(this).attr("data-priority");	
+						
+						if (priority) {
+							item = {}
+							item ["pk"] = id;
+							item ["priority"] = priority;
+							jsonObj.push(item);
+						}
+												
+					});	
+					item = {}
+					item ["csrfmiddlewaretoken"] = csrftoken
+					jsonObj.push(item);			
+					console.log(jsonObj);
+					return jsonObj;
+				}
+				
+				jsonData = JSON.stringify(createJSON());
+				console.log(jsonData);
+				
+				var person = {
+					name: "test1",
+					address: "test-add",
+					phone: "test-phone",
+					csrfmiddlewaretoken: csrftoken,
+				}
+				
+				function csrfSafeMethod(method) {
+					// these HTTP methods do not require CSRF protection
+					return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+				}
+
+				//Send data  
+				$.ajax({
+					
+				   url : '/priorityupdate/', // the endpoint,commonly same url
+				   
+				   beforeSend: function(xhr, settings) {
+						if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+							xhr.setRequestHeader("X-CSRFToken", csrftoken);
+						}
+				   },
+				   
+				   type : "POST", // http method
+				   
+				   content_type: 'application/x-www-form-urlencoded; charset=UTF-8',
+				   
+				   data : jsonData, // data sent with the post request
+					
+				   dataType: "json",
+					
+					// handle a successful response
+					//success : function(json) {
+					//	console.log(json); // another sanity check
+						//On success show the data posted to server as a message
+					//	alert('Your data has been updated successfully!');
+					//	},
+
+					// handle a non-successful response
+					//error : function(xhr,errmsg,err) {
+					//		console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+					//	}
+				}).done(function( data ) {
+					if ( console && console.log ) {
+					  console.log( data );
+					  alert('Your data has been updated successfully!');
+					}
+				  }).fail(function(data) {
+					if ( console && console.log ) {
+					  console.log( data );
+					  alert('Your data cannot be updated!');
+					}
+				  });
+				
+			});
+
+		</script>
+{% endblock %}
+

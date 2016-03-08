@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% block title %}New Feature | Dashboard{% endblock %}
+
+{% block content %}
+					<div class="page-title">
+                        <div class="title_left">
+                            <h3>
+			                    New Feature Request
+			                </h3>
+                        </div>                        
+                    </div>
+                    <div class="clearfix"></div>
+					
+					{% if count != 0 %}					
+					<div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Total Feature Request</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li style="float: right;"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li> 
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+									<table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Client Name</th>
+                                                <th>No. Of Feature Request</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>											
+											{% for client in clients %}
+												<tr>
+													<td>{{ client.name }}</td>
+													<td>{{ client.tickets.count }}</td>
+												</tr>
+											{% endfor %}											
+                                        </tbody>
+                                    </table>									
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+					
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Create A Feature Request</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li style="float: right;"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li> 
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <form class="form-horizontal form-label-left" method="post" action="{% url 'index' %}" novalidate>
+										
+										{% csrf_token %}
+
+                                        <p><strong>The (*) fields in the form are <code>required</code></strong></p>
+                                        <hr />
+                                        {% if form.non_field_errors %}
+											<div class="form-messages animated flash">
+												{% for error in form.non_field_errors %}
+													<div class="alert alert-danger alert-dismissible" role="alert">
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														<strong>{{ error }}</strong>
+													</div>													
+												{% endfor %}
+											</div>											
+										{% endif %}
+										
+										{% if messages %}
+											<div class="form-messages animated flash">
+												{% for message in messages %}
+													<div class="alert {% if message.tags == 'success' %} alert-success {% else %} alert-danger {% endif %} alert-dismissible" role="alert">
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														{% if message.tags == 'success' %}
+															<strong>SUCCESS!</strong> {{ message }}
+														{% else %}
+															<strong>Warning!</strong> {{  message }}
+														{% endif %}
+													</div>													
+												{% endfor %}
+											</div>
+										{% endif %}
+                                        
+                                        <div class="row">
+                                        	<div class="col-md-12 col-sm-12 col-xs-12">
+                                        		<div class="row">
+	                                        		<div class="col-md-6">
+	                                        			<div class="item form-group">
+				                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="{{ form.title.id_for_label }}">{{ form.title.label }} <span class="required">*</span>
+				                                            </label>
+				                                            <div class="col-md-6 col-sm-6 col-xs-12">
+																{{ form.title }}				                                                
+				                                                {% if form.title.errors %}
+																	{% for error in form.title.errors %}
+																		<p>{{ error }}</p>
+																	{% endfor %}
+				                                                {% endif %}
+				                                            </div>
+				                                        </div>
+	                                        		</div>    
+	                                        		<div class="col-md-6">
+	                                        			<div class="item form-group">
+															<label class="control-label col-md-3 col-sm-3 col-xs-12" for="{{ form.targetdate.id_for_label }}">{{ form.targetdate.label }} <span class="required">*</span>
+				                                            </label>
+				                                            <div class="col-md-6 col-sm-6 col-xs-12">
+																{{ form.targetdate }}	                                                            
+	                                                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+	                                                    		<span id="inputSuccess2Status" class="sr-only">(success)</span>  
+	                                                    		{% if form.targetdate.errors %}
+																	{% for error in form.targetdate.errors %}
+																		<p>{{ error }}</p>
+																	{% endfor %}
+				                                                {% endif %}
+				                                            </div>				                                            
+				                                        </div>	
+	                                        		</div>   
+                                        		</div>     
+                                        		<hr />
+                                        		<div class="row">
+                                        			<div class="col-md-6">
+	                                        			<div class="item form-group">
+				                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="form.client.id_for_label">{{ form.client.label }} <span class="required">*</span>
+				                                            </label>
+				                                            <div class="col-md-6 col-sm-6 col-xs-12">
+																{{ form.client }}				                                                
+				                                                {% if form.client.errors %}
+																	{% for error in form.client.errors %}
+																		<p>{{ error }}</p>
+																	{% endfor %}
+				                                                {% endif %}
+				                                            </div>
+				                                        </div>	
+	                                        		</div>   
+	                                        		<div class="col-md-6">
+	                                        			<div class="item form-group">
+															<label class="control-label col-md-3 col-sm-3 col-xs-12" for="{{ form.productarea.id_for_label }}">{{ form.productarea.label }} <span class="required">*</span>
+				                                            </label>
+				                                            <div class="col-md-6 col-sm-6 col-xs-12">
+																{{ form.productarea }}				                                                
+				                                                {% if form.productarea.errors %}
+																	{% for error in form.productarea.errors %}
+																		<p>{{ error }}</p>
+																	{% endfor %}
+				                                                {% endif %}
+				                                            </div>			                                            
+				                                        </div>
+	                                        		</div>    
+                                        		</div>    
+                                        		<hr />
+                                        		<div class="row">
+                                        			<!--<div class="col-md-6">
+														<div class="item form-group">
+				                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="{{ form.priority.id_for_label }}">{{ form.priority.label }}
+				                                            </label>
+				                                            <div class="col-md-6 col-sm-6 col-xs-12">
+																{{ form.priority }}				                                                
+				                                                {% if form.priority.errors %}
+																	{% for error in form.priority.errors %}
+																		<p>{{ error }}</p>
+																	{% endfor %}
+				                                                {% endif %}
+				                                                <span>{{ form.priority.help_text }}</span>
+				                                            </div>				                                            
+				                                        </div>	
+				                                    </div> -->
+				                                    <div class="col-md-12">  
+	                                        			<div class="item form-group">
+				                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="{{ form.url.id_for_label }}">{{ form.url.label }}
+				                                            </label>
+				                                            <div class="col-md-6 col-sm-6 col-xs-12">
+																{{ form.url }}				                                                
+				                                                {% if form.url.errors %}
+																	{% for error in form.url.errors %}
+																		<p>{{ error }}</p>
+																	{% endfor %}
+				                                                {% endif %}
+				                                            </div>
+				                                        </div>	
+	                                        		</div>   
+                                        		</div>         
+                                        		<hr />
+                                        		<div class="row">
+                                        			<div class="col-md-12">
+	                                        			<div class="item form-group">
+				                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="{{ form.desc.id_for_label }}">{{ form.desc.label }} <span class="required">*</span>
+				                                            </label>
+				                                            <div class="col-md-7 col-sm-7 col-xs-12">
+																{{ form.desc }}
+				                                                {% if form.desc.errors %}
+																	{% for error in form.desc.errors %}
+																		<p>{{ error }}</p>
+																	{% endfor %}
+				                                                {% endif %}
+				                                            </div>
+				                                        </div>
+	                                        		</div>   
+                                        		</div>                               	                        		
+                                        	</div>
+                                        </div>
+
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <input class="btn btn-success form-submit" type="submit" name="submit-btn" value="Submit" id="submit-btn"/>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>					
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+
+			// initialize the validator function
+			validator.message['date'] = 'not a real date';
+			validator.message['empty'] = 'required field';
+
+			// validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+			$('form')
+				.on('blur', 'input[required], input.optional, select.required', validator.checkField)
+				.on('change', 'select.required', validator.checkField)
+				.on('keypress', 'input[required][pattern]', validator.keypress);
+
+			$('.multi.required')
+				.on('keyup blur', 'input', function () {
+					validator.checkField.apply($(this).siblings().last()[0]);
+				});
+
+			// bind the validation to the form submit event
+			//$('#send').click('submit');//.prop('disabled', true);
+
+			$('form').submit(function (e) {
+				e.preventDefault();           
+				var submit = true;
+				// evaluate the form using generic validaing
+				if (!validator.checkAll($(this))) {
+					submit = false;
+				}
+
+				if (submit)
+					this.submit();
+				return false;
+			});
+			
+			$('#id_targetdate').daterangepicker({
+				singleDatePicker: true,
+				calender_style: "picker_1"
+			}, function (start, end, label) {
+				console.log(start.toISOString(), end.toISOString(), label);
+			});
+		</script>
+{% endblock %}
+

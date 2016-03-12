@@ -10,6 +10,7 @@ This application is developed to create a prototype of creating a Feature Reques
 3. PIP
 4. Virtualenv
 
+
 ## Application ScreenShot
 
 ![Feature Request Application](https://raw.githubusercontent.com/himadriganguly/featurerequest/master/screenshots/screenshot.jpg "Feature Request Application Browser Preview")
@@ -28,6 +29,11 @@ This application is developed to create a prototype of creating a Feature Reques
 9. Now create some `Clients`, `Products`, you can also create some user without staff member previledges and then logout
 10. Move to the `127.0.0.1` and log in with username and password that you created or admin username and password.
 11. Enjoy!
+
+
+## Additional Requirements
+
+1. pip install factory_boy
 
 
 ## Features

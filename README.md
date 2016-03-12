@@ -42,7 +42,7 @@ This application is developed to create a prototype of creating a Feature Reques
 
 ## Limitations
 
-1. Testing is not done in this application.
+1. Testing in progress.
 2. The Application can be more dry by tweaking the code. Sorry developed in a hurry so make some mistakes.
 3. Code can be more optimized by making better coding than me.
 3. More Features can be added.

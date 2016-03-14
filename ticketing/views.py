@@ -139,7 +139,7 @@ def update_priority(request):
 							
 							#print("{} - {}".format(pk,priority))
 							
-							record = FeatureRequest(pk = pk)
+							record = FeatureRequest.objects.get(pk = pk)
 							record.priority = priority
 							record.save(update_fields=["priority"])
 					i += 1

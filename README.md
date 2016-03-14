@@ -36,6 +36,13 @@ This application is developed to create a prototype of creating a Feature Reques
 1. pip install factory_boy
 
 
+## Other Tools Used
+
+1. Jenkins (For CI) [**http://jenkins-ci.org/**](http://jenkins-ci.org/)
+
+2. Git (For source code management) [**https://git-scm.com/**](https://git-scm.com/)
+
+
 ## Features
 
 1. Admin Interface to create, edit, update, delete `Clients`, `Feature requests` and `Products`

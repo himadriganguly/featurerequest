@@ -33,9 +33,29 @@ This application is developed to create a prototype of creating a Feature Reques
 
 ## Additional Requirements
 
+You can use these lines seperately for local development or can use `pip install -r requirements/local.txt`
+
 1. pip install factory_boy
 
 2. pip install --upgrade pyflakes
+
+3. pip install django-debug-toolbar
+
+4. pip install factory-boy
+
+5. pip install pyflakes
+
+6. pip install pep8
+
+7. pip install autopep8
+
+8. pip install coverage
+
+9. pip install django-jenkins
+
+10. pip install python-dateutil
+
+11. pip install selenium (tests not included yet)
 
 
 ## Other Tools Used
@@ -43,6 +63,8 @@ This application is developed to create a prototype of creating a Feature Reques
 1. Jenkins (For CI) [**http://jenkins-ci.org/**](http://jenkins-ci.org/)
 
 2. Git (For source code management) [**https://git-scm.com/**](https://git-scm.com/)
+
+3. Selenium (Automated Browser Testing) [**http://www.seleniumhq.org/**](http://www.seleniumhq.org/)
 
 
 ## Features

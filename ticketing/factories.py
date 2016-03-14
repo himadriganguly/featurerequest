@@ -1,5 +1,6 @@
 import factory
-from django.utils.timezone import now
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 from .models import Client, Product, FeatureRequest
 
 class ClientFactory(factory.django.DjangoModelFactory):
@@ -29,6 +30,18 @@ class FeatureRequestFactory(factory.django.DjangoModelFactory):
 	url=''
 	client=factory.SubFactory(ClientFactory)
 	productarea=factory.SubFactory(ProductFactory)
+
+class UserFactory(factory.django.DjangoModelFactory):
+    """
+    Creates a standard user.
+    """
+    class Meta:
+        model = User
+
+    first_name = factory.Faker('first_name')
+    last_name = factory.Faker('last_name')
+    username = first_name
+    password = make_password('test')
 	
 	
 	

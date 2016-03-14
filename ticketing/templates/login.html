@@ -51,14 +51,14 @@
 						</div>
 					{% endif %}
 	                <div class="item">  	
-	                    <input name="username" type="text" class="form-control" placeholder="Username" required="required" />
+	                    <input name="username" id="username" type="text" class="form-control" placeholder="Username" required="required" />
 	                </div>
 	                <div class="item">			
-	                    <input name="password" type="password" class="form-control" placeholder="Password" required="required" />
+	                    <input name="password" id="password" type="password" class="form-control" placeholder="Password" required="required" />
 	                </div>
 	                <div>
 						<input type="hidden" name="next" value="{% url 'index' %}" />
-	                	<input class="btn btn-default submit" type="submit" name="submit-btn" value="Submit" id="submit-btn"/>
+	                	<input class="btn btn-default submit" type="submit" name="submit-btn" value="Submit" id="login-btn"/>
 	                </div>
 	                <div class="clearfix"></div>
 	                <div class="separator">

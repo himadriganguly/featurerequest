@@ -7,6 +7,9 @@ class ClientTest(TestCase):
 		self.client = Client(name="Client 1")
 		self.client.save()
 	
+	def tearDown(self):
+		self.client.delete()
+	
 	def test_string_method(self):
 		self.assertEqual("Client 1", self.client.__str__())
 
@@ -14,6 +17,9 @@ class ProductTest(TestCase):
 	def setUp(self):		
 		self.product = Product(name="Product 1")
 		self.product.save()
+	
+	def tearDown(self):
+		self.product.delete()
 	
 	def test_string_method(self):
 		self.assertEqual("Product 1", self.product.__str__())
@@ -34,6 +40,11 @@ class FeatureRequestTest(TestCase):
 									productarea=self.product								
 								)
 		self.featurerequest.save()
+	
+	def tearDown(self):
+		self.client.delete()
+		self.product.delete()
+		self.featurerequest.delete()
 	
 	def test_string_method(self):
 		self.assertEqual("This is a title for Feature Request", self.featurerequest.__str__())

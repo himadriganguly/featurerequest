@@ -55,7 +55,7 @@ You can use these lines seperately for local development or can use `pip install
 
 10. pip install python-dateutil
 
-11. pip install selenium (tests not included yet)
+11. pip install selenium
 
 
 ## Other Tools Used
@@ -64,7 +64,7 @@ You can use these lines seperately for local development or can use `pip install
 
 2. Git (For source code management) [**https://git-scm.com/**](https://git-scm.com/)
 
-3. Selenium (Automated Browser Testing) [**http://www.seleniumhq.org/**](http://www.seleniumhq.org/)
+3. Selenium (Automated Browser Testing) [**http://www.seleniumhq.org/**](http://www.seleniumhq.org/) [Selenium is used along with Jenkins in a Grid Setup]
 
 
 ## Features

@@ -1,0 +1,13 @@
+-r base.txt
+
+django-debug-toolbar==1.4
+sqlparse==0.1.18
+factory-boy==2.6.1
+fake-factory==0.5.5
+pyflakes==1.1.0
+pep8==1.7.0
+autopep8==1.2.2
+coverage==4.1b2
+django-jenkins==0.18.1
+python-dateutil==2.5.0
+selenium==2.52.0

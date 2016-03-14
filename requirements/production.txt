@@ -1,0 +1,5 @@
+-r base.txt
+
+uwsgi
+dj-database-url
+python-dateutil==2.5.0

@@ -1,0 +1,10 @@
+-r base.txt
+
+factory-boy==2.6.1
+fake-factory==0.5.5
+coverage==4.1b2
+django-jenkins==0.18.1
+selenium==2.52.0
+coverage==4.1b2
+python-dateutil==2.5.0
+

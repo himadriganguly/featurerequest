@@ -121,13 +121,13 @@ def update_priority(request):
 			
 			objs = json.loads(request.body.decode())
 			
-			print(objs);
+			# print(objs);
 			
 			if objs:
 				
 				length = len(objs) - 1
 				
-				print(objs[0].items())
+				# print(objs[0].items())
 				
 				i = 0 
 				pk = 0 
@@ -137,7 +137,7 @@ def update_priority(request):
 				while i < length:
 					for key,value in objs[i].items():
 						
-						print("{} - {}".format(key,value))
+						# print("{} - {}".format(key,value))
 						
 						if key == 'pk':
 							pk = int(value)							
@@ -145,7 +145,7 @@ def update_priority(request):
 							priority = int(value)
 						if (pk !=0 and priority !=0):
 														
-							#print("{} - {}".format(pk,priority))
+							# print("{} - {}".format(pk,priority))
 							
 							record = FeatureRequest.objects.get(pk=pk)
 							record.priority = priority

@@ -67,7 +67,7 @@ class FeatureRequestTest(TestCase):
 		form = FeatureRequestForm(data={
 			'title': 'This is a test title',
 			'desc': self.new_feature_request.desc,
-			'targetdate': '',
+			'targetdate': '03/24/2016',
 			'url': 'http://www.example.com',	
 			'client': '',
 			'productarea': self.product.pk,
@@ -75,4 +75,17 @@ class FeatureRequestTest(TestCase):
 		
 		self.assertFalse(form.is_valid())
 		self.assertTrue(form.has_error('client', code='required'))	
+	
+	def test_rejects_feature_name_that_already_exists(self):
+		form = FeatureRequestForm(data={
+			'title': self.new_feature_request.title,
+			'desc': self.new_feature_request.desc,
+			'targetdate': '03/24/2016',
+			'url': 'http://www.example.com',	
+			'client': self.new_feature_request.client.pk,
+			'productarea': self.new_feature_request.productarea.pk,
+		})
+		
+		self.assertFalse(form.is_valid())
+		self.assertTrue(form.has_error(NON_FIELD_ERRORS))	
 	

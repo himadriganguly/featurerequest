@@ -127,7 +127,7 @@ def update_priority(request):
 				
 				length = len(objs) - 1
 				
-				#print(length)
+				print(objs[0].items())
 				
 				i = 0 
 				pk = 0 
@@ -137,19 +137,21 @@ def update_priority(request):
 				while i < length:
 					for key,value in objs[i].items():
 						
-						#print("{} - {}".format(key,value))
+						print("{} - {}".format(key,value))
 						
 						if key == 'pk':
 							pk = int(value)							
 						if key == 'priority':
 							priority = int(value)
 						if (pk !=0 and priority !=0):
-							
+														
 							#print("{} - {}".format(pk,priority))
 							
-							record = FeatureRequest.objects.get(pk = pk)
+							record = FeatureRequest.objects.get(pk=pk)
 							record.priority = priority
-							record.save(update_fields=["priority"])
+							record.save()
+							pk=0
+							priority=0
 					i += 1
 				response_data = {}
 				response_data['msg'] = 'Priority update successfully!'

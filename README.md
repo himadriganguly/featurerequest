@@ -41,21 +41,19 @@ You can use these lines seperately for local development or can use `pip install
 
 3. pip install django-debug-toolbar
 
-4. pip install factory-boy
+4. pip install pyflakes
 
-5. pip install pyflakes
+5. pip install pep8
 
-6. pip install pep8
+6. pip install autopep8
 
-7. pip install autopep8
+7. pip install coverage
 
-8. pip install coverage
+8. pip install django-jenkins
 
-9. pip install django-jenkins
+9. pip install python-dateutil
 
-10. pip install python-dateutil
-
-11. pip install selenium
+10. pip install selenium
 
 
 ## Other Tools Used

@@ -89,15 +89,23 @@ class FeaturePage(View):
 		if(request.method == 'POST'):
 			form = SortRequestForm(request.POST)
 			if(form and form.is_valid()):
-				client = Client.objects.get(id=request.POST.get('client'))	
+				client = Client.objects.get(id=request.POST.get('client'))
+			else:
+				client = ''  	
 		else:
 			return redirect('feature-list')
 				
-		context = {
-			'client': client,
-			'form': SortRequestForm(),
-			'menu': 'home-featurelist',
-		}	
+		if client:
+			context = {
+				'client': client,
+				'form': SortRequestForm(),
+				'menu': 'home-featurelist',
+			}       
+		else:
+			context = {
+				'form': SortRequestForm(),
+				'menu': 'home-featurelist',
+			}      
 		
 		return render(request, "feature.html", context)
 

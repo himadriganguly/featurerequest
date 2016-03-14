@@ -35,6 +35,8 @@ This application is developed to create a prototype of creating a Feature Reques
 
 1. pip install factory_boy
 
+2. pip install --upgrade pyflakes
+
 
 ## Other Tools Used
 

@@ -3,7 +3,7 @@ from django.views.generic import View,DetailView
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
-from django.shortcuts import get_object_or_404
+# from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 import json
 
@@ -58,7 +58,7 @@ class HomePage(View):
 					return redirect('index')
 				
 		clients 	= Client.objects.all()
-		products	= Product.objects.all()
+		# products	= Product.objects.all()
 		
 		context = {
 			'clients': clients,
@@ -132,7 +132,7 @@ def update_priority(request):
 				i = 0 
 				pk = 0 
 				priority = 0
-				tempdict = {}
+				# tempdict = {}
 				
 				while i < length:
 					for key,value in objs[i].items():

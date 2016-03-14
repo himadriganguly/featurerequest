@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ticketing.factories import ClientFactory, ProductFactory, FeatureRequestFactory
+# from ticketing.factories import ClientFactory, ProductFactory, FeatureRequestFactory
 from ticketing.models import Client, Product, FeatureRequest
 
 class ClientTest(TestCase):

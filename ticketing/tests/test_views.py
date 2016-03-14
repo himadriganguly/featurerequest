@@ -1,10 +1,9 @@
 from django.test import TestCase
-from django.core.urlresolvers import resolve, reverse
+from django.core.urlresolvers import reverse
 import datetime
-import json
 from ticketing.factories import ClientFactory, ProductFactory, FeatureRequestFactory, UserFactory
-from ticketing.models import Client, Product, FeatureRequest
-from ticketing.forms import FeatureRequestForm
+from ticketing.models import FeatureRequest
+# from ticketing.forms import FeatureRequestForm
 
 
 class TestLogin(TestCase):
@@ -80,7 +79,7 @@ class TestHomePage(TestCase):
 
         self.client.login(username="test", password="test")
 
-        response = self.client.post(
+        self.client.post(
             reverse('index'),
             data={
                 'title': 'New Feature Test',
@@ -102,7 +101,7 @@ class TestHomePage(TestCase):
 
         self.client.login(username="test", password="test")
 
-        response = self.client.post(
+        self.client.post(
             reverse('index'),
             data={
                 'title': 'New Feature Test',

@@ -15,6 +15,9 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Get the DJANGO_MODE from the environment 
+DJANGO_MODE = os.getenv('DJANGO_MODE', "Production").lower()
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -23,9 +26,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8j+a)vik1ce88pjt-mp&+41k!!^h14snyca3(%^diqf*kp0)y8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if DJANGO_MODE == 'local':
+	DEBUG = True
+else:
+	DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -37,8 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_jenkins',
+]
+
+PROJECT_APPS = [
     'ticketing',
 ]
+
+INSTALLED_APPS += PROJECT_APPS
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,12 +87,13 @@ WSGI_APPLICATION = 'feature_request.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+if DJANGO_MODE == 'local':
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.sqlite3',
+			'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+		}
+	}
 
 
 # Password validation
@@ -121,9 +134,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'feature_request', 'static'),
-]
+if DJANGO_MODE == 'production':
+	STATIC_ROOT = os.path.join(BASE_DIR, 'feature_request', 'static')
+else:
+	STATICFILES_DIRS = [
+		os.path.join(BASE_DIR, 'feature_request', 'static'),
+	]
 
+FIXTURE_DIRS = [
+	os.path.join(BASE_DIR, 'fixtures'),
+]
+	
 # Auth
 LOGIN_URL = '/login/'

@@ -1,6 +1,6 @@
 -r base.txt
 
-django-debug-toolbar==1.4
+django-debug-toolbar==1.11.1
 sqlparse==0.1.18
 factory-boy==2.6.1
 fake-factory==0.5.5
